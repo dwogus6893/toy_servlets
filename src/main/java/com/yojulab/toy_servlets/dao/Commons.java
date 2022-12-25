@@ -8,11 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 // DB 접근
+// sql보낼때는 statement를 쓴다.
 public class Commons {
     public Statement getStatement() {
         String url = "jdbc:mysql://localhost:3306/toys_JavaWithDB";
         String user = "root";
-        String password = "*khacademy!";
+        String password = "1q2w3e4r!@#";
 
         Statement statement = null;
         try {

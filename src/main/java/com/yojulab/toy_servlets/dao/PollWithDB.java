@@ -7,40 +7,47 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PollWithDB {
-    public HashMap<String, Object> getList(String questions_Uid) throws SQLException {
-        Commons commons = new Commons();
-        Statement statement = commons.getStatement();
-        String query = "SELECT * FROM QUESTIONS_LIST"+
-                "WHERE QUESTIONS_UID ='" + questions_Uid + "'";
-        
-        ResultSet resultSet_Question = statement.executeQuery(query);
-        HashMap<String, Object> bundle_list = new HashMap<>();
-        HashMap<String, Object> question = new HashMap<>();
-        ArrayList<String> answers = new ArrayList<>();    
-        
-        //질문넣기
-        while(resultSet_Question.next()) {
-            question.put("QUESTION", resultSet_Question.getString("QUESTIONS"));
-            question.put("ORDERS", resultSet_Question.getInt("ORDERS"));
+    public HashMap<String, Object> getList(String example_Uid) throws SQLException {
+        Commons commons = new Commons(); //DB연결을 위해 선언
+        Statement statement = commons.getStatement();// sql쿼리 쏴야되서 선언
+        String query = "SELECT * FROM EXAMPLE_LIST" +
+                    "WHERE EXAMPLE_UID = '" + example_Uid +"'";
+
+        ResultSet resultSet_Example = statement.executeQuery(query);
+        HashMap<String,Object> bundle_list = new HashMap<>();
+        HashMap<String,Object> example = new HashMap<>();
+        ArrayList<String> questions = new ArrayList<>();
+
+        //답항 넣기
+        While(resultSet_Example.next()){
+            example.put("EXAMPLE",resultSet_Example.getString("EXAMPLE"));
+            example.put("ORDERS" resultSet_Example.getInt("ORDERS"));
         }
 
-        //답항 만들기
+        //질문 만들기
         Statement statement2 = commons.getStatement();
-        query = "SELECT ANSWERS.QUESTIONS_UID, EXAMPLE_LIST.ORDERS, EXAMPLE_LIST.EXAMPLE " +
-                "FROM ANSWERS " +
-                "INNER JOIN EXAMPLE_LIST " +
-                "ON ANSWERS.EXAMPLE_UID = EXAMPLE_LIST.EXAMPLE_UID " +
-                "WHERE QUESTIONS_UID = '" + questions_Uid + "' " +
-                "ORDER BY QUESTIONS_UID; ";
+        query = "SELECT answers.QUESTIONS_UID, questions_list.ORDERS,questions_list.QUESTIONS"+
+                "FROM answers"+
+                "INNER JOIN questions_list"+
+                "ON answers.QUESTIONS_UID = questions_list.QUESTIONS_UID"+
+                "WHERE QUESTIONS_UID='" +example_Uid+"'"+
+                "ORDER BY QUESTIONS_UID;";
 
-        ResultSet resultSet_Answer = statement2.executeQuery(query);
+        ResultSet resultSet_Question = statement2.executeQuery(query);
 
-        while (resultSet_Answer.next()) {
-            answers.add(resultSet_Answer.getInt("ORDERS") + ". " + resultSet_Answer.getString("Example"));
+        while(resultSet_Question.next()){
+            answer.add(resultSet_Question.getInt("ORDERS")+ "." + resultSet_Example.getString(""));
         }
-        bundle_list.put("QUESTION", question);
-        bundle_list.put("ANSWERS", answers);
 
-        return bundle_list;
+        bundle_list.put("EXAMPLE",example);
+        bundle_list.put("ANSWERS",answers);
+
+        
+
+
+
+
+
+
     }
 }
