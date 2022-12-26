@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 public class PollWithDB {
     public HashMap<String, Object> getList(String example_Uid) throws SQLException {
-        Commons commons = new Commons(); //DB연결을 위해 선언
-        Statement statement = commons.getStatement();// sql쿼리 쏴야되서 선언
+        Commons commons = new Commons(); 
+        Statement statement = commons.getStatement();
         String query = "SELECT * FROM EXAMPLE_LIST" +
                     "WHERE EXAMPLE_UID = '" + example_Uid +"'";
 
@@ -19,9 +19,9 @@ public class PollWithDB {
         ArrayList<String> questions = new ArrayList<>();
 
         //답항 넣기
-        While(resultSet_Example.next()){
+        while(resultSet_Example.next()){
             example.put("EXAMPLE",resultSet_Example.getString("EXAMPLE"));
-            example.put("ORDERS" resultSet_Example.getInt("ORDERS"));
+            example.put("ORDERS" ,resultSet_Example.getInt("ORDERS"));
         }
 
         //질문 만들기
@@ -34,15 +34,31 @@ public class PollWithDB {
                 "ORDER BY QUESTIONS_UID;";
 
         ResultSet resultSet_Question = statement2.executeQuery(query);
-
+        HashMap<String, Object> result2 = null;
         while(resultSet_Question.next()){
-            answer.add(resultSet_Question.getInt("ORDERS")+ "." + resultSet_Example.getString(""));
-        }
+            result2 = new HashMap<>();
+            result2.put("QUESTIONS_UID",resultSet_Question.getString("QUESTIONS_UID"));
+            result2.put("QUESTIONS", resultSet_Question.getString("QUESTIONS"));
+            result2.put("ORDERS",resultSet_Question.getInt("ORDERS"));
+           }
+        
 
         bundle_list.put("EXAMPLE",example);
-        bundle_list.put("ANSWERS",answers);
+        bundle_list.put("ANSWERS",questions);
 
+        public HashMap<String, Object> getQuestion(String questionsUid) throws SQLException{
         
+            Commons commons = new Commons();
+            Statement statement = commons.getStatement();
+
+            String query = "";
+
+            ResultSet resultSet = statement.executeQuery(query);
+            HashMap<String, Object> result = null;
+            while(resultSet.next()) {
+                result = new HashMap<>();
+            }
+        }
 
 
 

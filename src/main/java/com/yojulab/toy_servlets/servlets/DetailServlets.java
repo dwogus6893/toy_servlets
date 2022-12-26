@@ -32,6 +32,7 @@ public class DetailServlets extends HttpServlet {
             System.out.println(example.get("ORDERS")+"." + example.get("EXAMPLE"));
 
             answers = (ArrayList<String>) bundle_list.get("ANSWERS");
+            answers = pollWithDB.getList(example_Uid);
         }
 
     }
