@@ -27,7 +27,11 @@ public class DetailServlets extends HttpServlet {
 
         try{
             bundle_list = pollWithDB.getList(example.Uid);
-            HashMap<String,Object>
+            HashMap<String,Object> example = (HashMap<String,Object>) bundle_list.get("EXAMPLE");
+            
+            System.out.println(example.get("ORDERS")+"." + example.get("EXAMPLE"));
+
+            answers = (ArrayList<String>) bundle_list.get("ANSWERS");
         }
 
     }
